@@ -1,14 +1,31 @@
 <template>
   <v-app dark>
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
+    <v-app-bar app dense>
+
+      <v-toolbar-title>Tricking Library</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn @click="toggleActivity" depressed>
+        Upload
+      </v-btn>
+
+    </v-app-bar>
+    <video-upload />
+    <v-main>
+      <nuxt/>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-export default {
-}
+  import {mapMutations} from 'vuex'
+  import VideoUpload from '../components/video-upload'
+
+  export default {
+    methods: mapMutations('videos', ['toggleActivity']),
+    components:{
+      VideoUpload
+    }
+  }
 </script>
