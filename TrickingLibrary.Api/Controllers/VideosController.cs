@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace TrickingLibrary.Api.Controllers
 {
@@ -32,7 +31,7 @@ namespace TrickingLibrary.Api.Controllers
             var mime = video.FileName.Split('.').Last();
             var fileName = string.Concat(Path.GetRandomFileName(), ".", mime);
             var savePath = Path.Combine(_env.WebRootPath, fileName);
-
+            
             await using (var fileSream = new FileStream(savePath, FileMode.Create, FileAccess.Write))
             {
                 await video.CopyToAsync(fileSream);
