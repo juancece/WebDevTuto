@@ -26,6 +26,7 @@ namespace TrickingLibrary.Api.Controllers
         }
         
         [HttpPost]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> UploadVideo(IFormFile video)
         {
             var mime = video.FileName.Split('.').Last();
