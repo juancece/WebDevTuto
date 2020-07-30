@@ -14,10 +14,10 @@
         <div>
           <v-text-field label="Name" v-model="form.name"></v-text-field>
           <v-text-field label="Description" v-model="form.description"></v-text-field>
-          <v-select :items="testData" v-model="form.difficulty" label="Difficulty"></v-select>
-          <v-select :items="testData" v-model="form.prerequisites" label="Prerequisites" multiple small-chips chips deletable-chips></v-select>
-          <v-select :items="testData" v-model="form.progressions" label="Progressions" multiple small-chips chips deletable-chips></v-select>
-          <v-select :items="testData" v-model="form.categories" label="Categories" multiple small-chips chips deletable-chips></v-select>
+          <v-select :items="difficultyItems" v-model="form.difficulty" label="Difficulty"></v-select>
+          <v-select :items="trickItems" v-model="form.prerequisites" label="Prerequisites" multiple small-chips chips deletable-chips></v-select>
+          <v-select :items="trickItems" v-model="form.progressions" label="Progressions" multiple small-chips chips deletable-chips></v-select>
+          <v-select :items="categoryItems" v-model="form.categories" label="Categories" multiple small-chips chips deletable-chips></v-select>
           <v-btn @click="step++">Next</v-btn>
         </div>
       </v-stepper-content>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import {mapState, mapActions, mapMutations} from 'vuex';
+  import {mapGetters ,mapState, mapActions, mapMutations} from 'vuex';
 
   const initState = () => ({
     step: 1,
@@ -54,7 +54,10 @@
   export default {
     name: "trick-steps",
     data: initState,
-    computed: mapState('video-upload', ['active']),
+    computed: {
+      ...mapState('video-upload', ['active']),
+      ...mapGetters('tricks', ['categoryItems', 'difficultyItems', 'trickItems']),
+  },
     watch: {
       'active': function(newValue) {
         if(!newValue) {
